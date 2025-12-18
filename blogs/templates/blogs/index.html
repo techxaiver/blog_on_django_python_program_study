@@ -1,0 +1,20 @@
+{% extends "blogs/base.html" %}
+
+{% block content %}
+  <p>Blog Posts</p>
+  <ul>
+    {% for post in posts %}
+      <li>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.date_added|date:'M d, Y H:i' }}</p>
+        <p>{{ post.text|linebreaks }}</p>
+        {% if post.owner == user %}
+          <a href="{% url 'blogs:edit_post' post.id %}">Edit entry</a>
+        {% endif %}
+      </li>
+
+    {% empty %}
+      <li>No posts have been added yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
